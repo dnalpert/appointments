@@ -1,27 +1,38 @@
 <template>
   <div id="main-app" class="container">
     <h1>{{ title }}</h1>
-    <font-awesome-icon icon="plus" class="mr-2"/>Add New Appointment
+    <font-awesome-icon icon="plus" class="mr-2" />Add New Appointment
+    <div v-for="(item, index) in appointments" :key="index">
+      <h4>{{ item.petName }}</h4>
+      <p>{{ item.aptNotes }}</p>
+    </div>
+  
   </div>
 
 </template>
 
 <script>
-import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome"
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
+import axios from "axios"
 
 export default {
-  name: 'MainApp',
+  name: "MainApp",
   data: function() {
     return {
-      title: 'Appointment List'
-    }
+      title: "Appointment List",
+      appointments: []
+    };
   },
   components: {
     FontAwesomeIcon
+  },
+  mounted () {
+    axios
+    .get("./data/appointments.json")
+    .then(response => (this.appointments = response.data))
   }
-}
+};
 </script>
 
 <style>
-
 </style>
