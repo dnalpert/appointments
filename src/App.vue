@@ -1,18 +1,18 @@
 <template>
   <div id="main-app" class="container">
-    <h1>{{ title }}</h1>
-    <font-awesome-icon icon="plus" class="mr-2" />Add New Appointment
-    <div v-for="(item, index) in appointments" :key="index">
-      <h4>{{ item.petName }}</h4>
-      <p>{{ item.aptNotes }}</p>
+    <div class="row justify-content-center">
+      
+      <h1>{{ title }}</h1>
+      <appointment-list :appointments="appointments"></appointment-list>
+    
     </div>
-  
   </div>
 
 </template>
 
 <script>
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
+// import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
+import AppointmentList from "./components/AppointmentList"
 import axios from "axios"
 
 export default {
@@ -24,7 +24,8 @@ export default {
     };
   },
   components: {
-    FontAwesomeIcon
+    // FontAwesomeIcon,
+    AppointmentList
   },
   mounted () {
     axios
@@ -35,4 +36,7 @@ export default {
 </script>
 
 <style>
+h1 { 
+  color: red;
+}
 </style>
