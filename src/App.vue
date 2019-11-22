@@ -5,7 +5,8 @@
       <h1>{{ title }}</h1>
       <appointment-list 
         :appointments="appointments" 
-        @remove="removeItem"  
+        @remove="removeItem"
+        @edit="editItem"  
       >
       </appointment-list>
     
@@ -35,14 +36,20 @@ export default {
     axios
     .get("./data/appointments.json")
     .then(response => (this.appointments = response.data.map(item => {
-      item.aptId = this.aptIndex
-      this.aptIndex++
-      return item
+      item.aptId = this.aptIndex;
+      this.aptIndex++;
+      return item;
     })))
   },
   methods: {
     removeItem: function (apt) {
-      this.appointments = _.without(this.appointments, apt)
+      this.appointments = _.without(this.appointments, apt);
+    },
+    editItem: function (id, field, text) {
+      const aptIndex = _.findIndex(this.appointments, {
+        aptId: id
+      });
+      this.appointments[aptIndex][field] = text;
     }
   }
 };
